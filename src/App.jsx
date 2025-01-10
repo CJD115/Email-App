@@ -2,7 +2,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/Navbar";
 import Inbox from "./components/Inbox";
-import Header from "./components/Header";
 import { useState } from "react";
 import Sent from "./components/Sent";
 
@@ -16,14 +15,16 @@ function App() {
 
   return (
     <BrowserRouter>
-      {/* <Header toggleMenu={toggleMenu} /> */}
-      <div className="flex w-full">
+      <div className="flex h-screen w-full">
+        {/* Fixed Navbar */}
         <Navbar isOpen={isOpen} toggleMenu={toggleMenu} />
-        <div>
-        <Routes>
-          <Route path="/" element={<Inbox isOpen={isOpen} />} />
-          <Route path="/sent" element={<Sent />} />
-        </Routes>
+        
+        {/* Main Content */}
+        <div className="flex-1 overflow-hidden">
+          <Routes>
+            <Route path="/inbox" element={<Inbox isOpen={isOpen} />} />
+            <Route path="/sent" element={<Sent />} />
+          </Routes>
         </div>
       </div>
     </BrowserRouter>
