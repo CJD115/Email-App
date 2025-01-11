@@ -1,5 +1,3 @@
-import React, { useState } from "react";
-
 function EmailItem({
   data,
   setCurrentId,
@@ -10,18 +8,15 @@ function EmailItem({
   setButtonClass,
 }) {
   const dateObj = new Date(data.date_created).toLocaleTimeString([], {
-  hour: "2-digit",
-  minute: "2-digit",
-});
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 
-
-  // Dynamically set classes for read/unread emails
   const readClassNames =
     data.read === "1"
       ? "bg-slate-100 text-black"
       : "bg-gray-100 font-bold text-black";
 
-  // Map tag to corresponding background and text colors
   const tagStyles = {
     social: "bg-blue-100 text-blue-600",
     work: "bg-gray-100 text-gray-600",
@@ -30,9 +25,7 @@ function EmailItem({
     default: "bg-gray-100 text-gray-600",
   };
 
-  const tagClass =
-  tagStyles[data.tag?.toLowerCase() || "default"];
-
+  const tagClass = tagStyles[data.tag?.toLowerCase() || "default"];
 
   const handleClick = () => {
     setCurrentId(data.id);
@@ -44,40 +37,27 @@ function EmailItem({
 
   return (
     <button
-  id={data.id}
-  onClick={handleClick}
-  aria-label={`Open email from ${data.name}`}
-  data-id={data.id}
-  className={`${emailItemWidth} md:w-full`}
->
-
-      <div
-        className={`${readClassNames} p-4 border-b border-gray-200 hover:bg-blue-100`}
-      >
+      id={data.id}
+      onClick={handleClick}
+      aria-label={`Open email from ${data.name}`}
+      data-id={data.id}
+      className={`${emailItemWidth} md:w-full`}
+    >
+      <div className={`${readClassNames} p-4 border-b border-gray-200 hover:bg-blue-100`}>
         <div className="flex items-center justify-between">
-          {/* Sender Name */}
           <div className="flex-1 text-left">
-          <p className="text-sm font-semibold truncate">{data.name || "Unknown Sender"}</p>          </div>
-
-          {/* Tag */}
+            <p className="text-sm font-semibold truncate">{data.name || "Unknown Sender"}</p>
+          </div>
           {data.tag && (
-            <span
-              className={`px-2 py-1 ml-2 text-xs rounded-full ${tagClass}`}
-            >
+            <span className={`px-2 py-1 ml-2 text-xs rounded-full ${tagClass}`}>
               {data.tag}
             </span>
           )}
-
-          {/* Timestamp */}
-          <div className="text-sm text-gray-500 whitespace-nowrap ml-4">
-            {dateObj}
-          </div>
+          <div className="text-sm text-gray-500 whitespace-nowrap ml-4">{dateObj}</div>
         </div>
-
-        {/* Subject */}
         <p className="mt-1 text-sm text-gray-700 truncate">{data.subject || "No Subject"}</p>
-        {/* Email body snippet */}
-        <p className="mt-1 text-xs text-gray-500 truncate">{data.body || "No Preview Available"}</p>      </div>
+        <p className="mt-1 text-xs text-gray-500 truncate">{data.body || "No Preview Available"}</p>
+      </div>
     </button>
   );
 }
